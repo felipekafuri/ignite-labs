@@ -22,7 +22,6 @@ export class AuthorizationGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const { req, res } = GqlExecutionContext.create(context).getContext();
-
     const checkJWT = promisify(
       jwt({
         secret: expressJwtSecret({
@@ -36,7 +35,6 @@ export class AuthorizationGuard implements CanActivate {
         algorithms: ['RS256'],
       }),
     );
-
     try {
       await checkJWT(req, res);
       return true;
